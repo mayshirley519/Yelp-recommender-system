@@ -133,21 +133,31 @@
 -  Cosine similarity measures by the cosine of the angle between two vectors to determine whether the two vectors are pointing in roughly the same direction. it is equivalent to 1 - cosine_distance. 
 
 
-# Cross-validation with built-in surprise algorithms
+# Cross-validation with built-in surprise algorithms 
+['Surprise_Prediction_Algorithms']('https://surprise.readthedocs.io/en/stable/prediction_algorithms_package.html')
 ---
 
-|  Algorithms  | Mean : RMSE, MAE | STD: RMSE, MAE | Mean: Test Time |   |
-|:------------:|:----------------:|:--------------:|:---------------:|---|
-|     SVD      |  1.1478 , 0.9183 | 0.0016, 0.0006 |       0.62      |   |
-|    SVDpp     |  1.1511, 0.9200  | 0.0018, 0.0012 |       1.15      |   |
-| CoClustering |  1.2455, 0.9384  | 0.0046, 0.0023 |      13.43      |   |
-|   KNNBasic   |  1.2863, 1.0238  | 0.0031, 0.0034 |      76.19      |   |
-|      NMF     |  1.3056, 1.0152  | 0.0021, 0.0026 |      22.76      |   |
-|   SlopeOne   |  1.3234, 0.9932  | 0.0014, 0.0014 |       2.12      |   |
-| KNNWithMeans |  1.3678, 1.0368  | 0.0049, 0.0043 |      93.91      |   |
+|  Algorithms  | Mean : RMSE, MAE | STD: RMSE, MAE | Mean: Fit Time |
+|:------------:|:----------------:|:--------------:|:--------------:|
+|     SVD      |  1.1265 , 0.8973 | 0.0011, 0.0002 |      18.31     |
+|    SVDpp     |  1.1300, 0.8971  | 0.0012, 0.0007 |      54.38     |
+| CoClustering |  1.2394, 0.9353  | 0.0011, 0.0004 |      10.73     |
+|   KNNBasic   |  1.2832, 1.0197  | 0.0011, 0.0007 |      53.56     |
+|      NMF     |  1.3043, 1.0149  | 0.0012, 0.0005 |      19.26     |
+|   SlopeOne   |  1.3229, 0.9939  | 0.0024, 0.0013 |      1.90      |
+| KNNWithMeans |  1.3633, 1.0328  | 0.0054, 0.0057 |     49.34      |
 
 - The 3 k-fold cross validations were performed with 50% of the total dataset for efficiency. 
 - The KNNBasic and KNNWithMeans can only perform with 20% of the full dataset with Google Colab+, otherwise is likely to crash. 
+
+- SVD: Equivalent to Probablistic Matrix Factorization
+- SVDpp: Extension of SVD that takes into account implicit ratings. 
+- KNNBasic: K-NN basic collaborative filtering algorithm.
+- KNNWithMeans: K-NN basic collaborative filtering algorithm, taking into account the mean ratings of each user. 
+- NMF: A collaborative filtering algorithm based on non-negative Matrix Factorization. 
+- SlopeOne: Propose three related slope one schemes with preictors of the form f(x) = x + b, which precompute the average differene between the ratings of one item and another for users who rated both. [Source]('https://arxiv.org/abs/cs/0702144')
+- CoClustering: A collaborative filtering algorithm based on co-clustering. 
+
 
 # Model selection
 -----------------
@@ -157,8 +167,8 @@
 
 |  Algorithms      |  RMSE  |   MAE  |
 |------------------|:------:|:------:|
-|        SVD       | 1.1114 | 0.8791 |
-| SVD GridSearchCV | 1.1186 | 0.8882 |
+|        SVD       | 1.1107 | 0.8785 |
+| SVD GridSearchCV | 1.1164 | 0.8866 |
     
     
 # Predictions
@@ -178,3 +188,5 @@
 - One drawback of the surprise svd model is that the results follow a normal distribution. The model is not likely to estimate the extremes. 
 - For the next step, I would like to learn and try other varieties of recommender system models. I want to examine content-based filtering to estimate business ratings. Maybe use NLP to evaluate the review texts and draw similarities there, or neural network to build another recommender system. 
 - In the mean time, I want to look into building applications, such as the Streamlit app, to put the recommender system into function. 
+
+
